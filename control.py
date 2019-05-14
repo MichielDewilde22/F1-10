@@ -8,7 +8,7 @@ kp = 14.0
 kd = 0.09
 servo_offset = 0 #18.5	# zero correction offset in case servo is misaligned. 
 prev_error = 0.0 
-vel_input = 25.0
+vel_input = 35.0
 scale_factor = 10
 max_angle = 45
 
@@ -24,7 +24,7 @@ def control(data):
 	# 1. Scale the error
 	error = scale_factor*data.pid_error
 	# 2. Apply the PID equation on error
-	V0 = Kp*error + Kd*prev_error-error
+	V0 = kp*error + kd*(prev_error-error)
 	# 3. Make sure the error is within bounds
 	if V0 < max_angle and V0 > -max_angle:
                 angle = V0
@@ -35,9 +35,10 @@ def control(data):
 	else:
                 angle = 0
 	angle+=servo_offset
-	print("Angle: ", angle)
+	angle=round(angle,2)
+	print("Angle: ", angle) 
+	prev_error = V0
 	## END
-
 	msg = drive_param();
 	if data.pid_vel == 0:
 		msg.velocity = 0;
