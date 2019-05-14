@@ -9,7 +9,7 @@ desired_trajectory = 0.5
 speed = 20
 vel = 30
 delay_dist = vel/100
-safety_dist = 2
+safety_dist = 0.2
 car_width = 0.3
 safety_angle_rad = math.atan((car_width/2)/safety_dist)
 safety_angle_deg = math.ceil(math.degrees(safety_angle_rad))
@@ -50,6 +50,7 @@ def callback(data):
 	for x in range(90-safety_angle_deg, 90+safety_angle_deg, 1):
 		if (getRange(data,x)<safety_dist/math.cos(math.radians(x))):
 			vel = 0
+			print("STOP: ",getRange(data,x)
 	if (vel!=0 and start_vel == 0):
 		vel = speed
 	
@@ -59,7 +60,7 @@ def callback(data):
 	error = desired_trajectory - CD
 	#if f<2:
 	#	vel = 0
-	print("Error: ", error)
+	print("Alfa: ", alfa, "Error: ", error)
 	## END
 
 	msg = pid_input()
