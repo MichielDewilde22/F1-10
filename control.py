@@ -5,7 +5,7 @@ from race.msg import drive_param
 from race.msg import pid_input
 
 kp = 14.0
-kd = 0.09
+kd = 7.48 #0.09
 servo_offset = 0 #18.5	# zero correction offset in case servo is misaligned. 
 prev_error = 0.0 
 vel_input = 35.0
