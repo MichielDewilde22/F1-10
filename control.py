@@ -5,7 +5,7 @@ from race.msg import drive_param
 from race.msg import pid_input
 
 kp = 14.0
-kd = 7.48 #0.09
+kd = 0.09
 servo_offset = 0 #18.5	# zero correction offset in case servo is misaligned. 
 prev_error = 0.0 
 vel_input = 35.0
@@ -48,12 +48,14 @@ def control(data):
 	pub.publish(msg)
 
 if __name__ == '__main__':
-	#global kp
-	#global kd
+	global kp
+	global kd
+	global scale_factor
 	#global vel_input
 	print("Listening to error for PID")
-	#kp = input("Enter Kp Value: ")
-	#kd = input("Enter Kd Value: ")
+	scale_factor = input ("Enter scale factor: ")
+	kp = input("Enter Kp Value: ")
+	kd = input("Enter Kd Value: ")
 	#vel_input = input("Enter Velocity: ")
 	rospy.init_node('pid_controller', anonymous=True)
 	rospy.Subscriber("error", pid_input, control)
